@@ -70,7 +70,7 @@ double RegFile::calculateGateCap() {
   if(min_diff < tol)
   {
     cap_value = cap_value/(3*32*minw*1e6);
-    cout << "Gate Capacitance is " << cap_value <<endl;
+    //cout << "Gate Capacitance is " << cap_value <<endl;
   }
   else {
     cout<< "Error: Can't calculate Gate Capacitance" << endl;
@@ -79,6 +79,7 @@ double RegFile::calculateGateCap() {
 
   capfile.close();
   minwfile.close();
+  return cap_value;
 }//end calculateGateCap
 
 void RegFile::charGateCap() {
@@ -124,6 +125,7 @@ RVP_Gate_Capacitance\n\
     // Get the Gate Cap
     // New method of obtaining Gate Cap
     gateCap=calculateGateCap();
+    cout << "Gate Capacitance is " << gateCap << endl;
     /*
     ifstream fileHandle("../results_v2/GC/RVP_Gate_Capacitance/data.txt");
     if (fileHandle.is_open()) {
