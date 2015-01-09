@@ -33,6 +33,54 @@ void RegFile::setInput(userInput& uImp) {
     BM.setInput(uImp);
 }
 
+// New method of obtaining gate capacitance by using only cpp. The old code utilized matlab in calculating gate cap, which made vipro fail because of matlab being unvailable.
+// The new method is totally independent with matlab.
+double RegFile::calculateGateCap() {
+//Read data from test results.
+  capfile.open("../results_v2/GC/RVP_Gate_Capacitance/cap.txt");
+  if(!capfile.is_open()) {
+      cout<<"Error: Can't find ../results_v2/GC/RVP_Gate_Capacitance/cap.txt!"<<endl;
+      exit(1);
+  }
+
+  minwfile.open("../results_v2/GC/RVP_Gate_Capacitance/minw.txt");
+  if(!minwfile.is_open()) {
+      cout<<"Error: Can't find ../results_v2/GC/RVP_Gate_Capacitance/minw.txt!"<<endl;
+      exit(1);
+  }
+// minw is the minimum width of inverters used in gate capacitance charaterization test. tol is the resolution of delay difference between mosfet and capacitance.
+  sst << capfile.rdbuf();
+  sst << minwfile.rdbuf();
+  sst >> cap[0] >> delay_fet[0] >> delay_cap[0] >> cap[1] >> delay_fet[1] >> delay_cap[1] >> cap[2] >> delay_fet[2] >> delay_cap[2] >> cap[3] >> delay_fet[3] >> delay_cap[3]
+      >> cap[4] >> delay_fet[4] >> delay_cap[4] >> cap[5] >> delay_fet[5] >> delay_cap[5] >> cap[6] >> delay_fet[6] >> delay_cap[6] >> cap[7] >> delay_fet[7] >> delay_cap[7]
+      >> cap[8] >> delay_fet[8] >> delay_cap[8] >> cap[9] >> delay_fet[9] >> delay_cap[9] >> minw >> tol;
+//To calculate the minimum difference of delay, and get the capacitance in that situation.
+  min_diff = 1e-3;
+  for(int i=0; i< 10 ;i++)
+  {
+    delay_diff[i] = abs(delay_fet[i] - delay_cap[i]);
+    if (min_diff > delay_diff[i])
+    {
+      min_diff = delay_diff[i];
+      cap_value = cap [i];
+      //cout << "Gate Capacitance is " << cap_value <<endl;
+    }
+  }
+//If the minimum difference can't satify requirment, the gate capacitance is invalid.
+  if(min_diff < tol)
+  {
+    cap_value = cap_value/(3*32*minw*1e6);
+    cout << "Gate Capacitance is " << cap_value <<endl;
+  }
+  else {
+    cout<< "Error: Can't calculate Gate Capacitance" << endl;
+    exit(1);
+  }
+
+  capfile.close();
+  minwfile.close();
+}//end calculateGateCap
+
 void RegFile::charGateCap() {
     // Need to check TASE flag
     // Need to check if SCOT needs pre-processor(s)
@@ -74,6 +122,9 @@ RVP_Gate_Capacitance\n\
 
 
     // Get the Gate Cap
+    // New method of obtaining Gate Cap
+    gateCap=calculateGateCap();
+    /*
     ifstream fileHandle("../results_v2/GC/RVP_Gate_Capacitance/data.txt");
     if (fileHandle.is_open()) {
         stringstream st;
@@ -86,7 +137,7 @@ RVP_Gate_Capacitance\n\
     } else {
         cerr << "Error: Can't open RVP_Gate_Capacitance test output " <<  endl;
         exit(1);
-    }
+    }*/
 }
 
 void RegFile::calculateTechRC() {

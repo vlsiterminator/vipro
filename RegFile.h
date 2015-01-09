@@ -4,6 +4,12 @@
 #include "periphery.h"
 #include "metalCap.h"
 #include "userInput.h"
+#include <sstream>
+#include <iostream>//cout;
+#include <string>
+#include <fstream>
+#include <cstdlib> //stdlib.h; for exit.
+#include <cmath>
 
 class RegFile {
     public:
@@ -27,6 +33,7 @@ class RegFile {
         void getDFFED(float& DFFenergy, float& DFFdelay);
         void getBMED(float& BMenergy, float& BMdelay);
         void runTASE(string tempPath);
+        double calculateGateCap();
 
     private:
         // Change objects to pointers if needed
@@ -41,11 +48,22 @@ class RegFile {
         bankMux BM;
         stringstream techTemplate;
         string test2run;
+  ifstream capfile;
+  ifstream minwfile;
+  stringstream sst;
 
         double gateCap;
         double rbl;
         double cbl;
         double cwl;
+  double minw;
+  double tol;
+  double cap[10];
+  double delay_cap[10];
+  double delay_fet[10];
+  double delay_diff[10];
+  double min_diff;
+  double cap_value;
 };
 
 
