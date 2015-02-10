@@ -205,7 +205,8 @@ void rowDecoder::extractOutput() {
 
         float power;
         sst >> dummy >> dummy >> dummy >> delay_rowDecoder >>  power;
-        energy_rowDecoder = power*32e-9;
+        //Updated the energy equation by multiplying 40ns.
+        energy_rowDecoder = power*40e-9;
     } else {
         sst_path << "../results_v2/RD/RVP_Decoder/output_" << nRows << ".txt";
         fileHandle.open(sst_path.str().c_str());
