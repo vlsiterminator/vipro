@@ -658,8 +658,9 @@ void RegFile::calculateWriteED(float& write_energy, float& write_delay) {
 //Reduced energy of BM buffer by a half
     write_delay = delay_DFF+max(max(delay_inter_bc_read+delay_pch_w,delay_rowDecoder+delay_bm_inter),(max(delay_DFF_w-delay_DFF,delay_inter_bc_write)+delay_writeDriver))
                   +delay_bitcell_w;
+//Deleted the energy_inter_bc_read from write energy
     write_energy = leakage_power*write_delay+energy_timing+energy_DFF_w+energy_rowDecoder+
-                   energy_writeDriver+energy_pch_w+energy_bitcell_w+energy_inter_bc_write+energy_bm_inter+energy_inter_bc_read;
+                   energy_writeDriver+energy_pch_w+energy_bitcell_w+energy_inter_bc_write+energy_bm_inter;
 
     struct stat buf;
     string filename = "writeDelay.log";
