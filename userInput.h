@@ -16,6 +16,7 @@ class userInput {
         void setNColMux(int nColMux);
         void setNRows(int nRows);
         void setWordSize(int wordSize);
+        void setNRLBL(int NRLBL);
         void setSAOffset(float SAOffset);
         void setBCHeight(float BCHeight);
         void setBCWidth(float BCWidth);
@@ -33,6 +34,7 @@ class userInput {
         int getNColMux();
         int getNRows();
         int getWordSize();
+        int getNRLBL();
         float getSAOffset();
         float getBCHeight();
         float getBCWidth();
@@ -52,6 +54,7 @@ class userInput {
         int n_colMux;
         int n_rows;
         int word_size;
+        int NR_LBL;
         float SAoffset;
         float BCheight;
         float BCwidth;

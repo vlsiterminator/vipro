@@ -116,6 +116,8 @@ int parser::parseUserToken(string& str) {
         input_handle.setNColMux(ivalue);
     } else if (token ==  "wordSize") {
         input_handle.setWordSize(ivalue);
+    } else if (token ==  "NRLBL") {
+        input_handle.setNRLBL(ivalue);
     } else if (token ==  "SAoffset") {
         input_handle.setSAOffset(fvalue);
     } else if (token ==  "height") {

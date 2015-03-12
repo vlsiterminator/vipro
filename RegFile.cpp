@@ -223,6 +223,9 @@ void RegFile::constructTemplate() {
             std::cout << "(simulate templ generate) <ws> word_size = " << inp.word_size << std::endl;
             #endif
 
+        } else if(line.find("<NRLBL>") != string::npos) {
+            techTemplate << "<NRLBL>  " << inp.NR_LBL << endl;
+
         } else if(line.find("<NC_sweep>") != string::npos) {
             techTemplate << "<NC_sweep> " << inp.n_colMux * inp.word_size << endl;
             #ifdef DEBUG

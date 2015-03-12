@@ -71,6 +71,10 @@ void userInput::setWordSize(int wordSize) {
 	word_size = wordSize;
 }
 
+void userInput::setNRLBL(int NRLBL) {
+	NR_LBL = NRLBL;
+}
+
 void userInput::setSAOffset(float SAOffset) {
 	SAoffset = SAOffset;
 }
@@ -137,6 +141,10 @@ int userInput::getNRows() {
 
 int userInput::getWordSize() {
 	return word_size;
+}
+
+int userInput::getNRLBL() {
+	return NR_LBL;
 }
 
 float userInput::getSAOffset() {

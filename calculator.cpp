@@ -65,6 +65,7 @@ void calculator::createRegFile() {
     std::cout << "n_colMux = " << inputHandle.n_colMux << std::endl;
     std::cout << "n_rows = " << inputHandle.n_rows << std::endl;
     std::cout << "word_size = " << inputHandle.word_size << std::endl;
+    std::cout << "NRLBL = " << inputHandle.NR_LBL << std::endl;
     std::cout << "SAoffset = " << inputHandle.SAoffset << std::endl;
     std::cout << "BCheight = " << inputHandle.BCheight << std::endl;
     std::cout << "BCwidth = " << inputHandle.BCwidth << std::endl;
